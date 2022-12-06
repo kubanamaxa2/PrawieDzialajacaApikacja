@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         var calendar = findViewById<CalendarView>(R.id.calendarView);
         var text = findViewById<TextView>(R.id.textView)
         var DataWy = mutableListOf<Int>(0,0,0);
-        var DataPrzy = mutableListOf<Int>(0,0,0);
+        var DataPrzy = mutableListOf<Int>(100000000,10000000,10000000);
         calendar.setOnDateChangeListener(
             CalendarView.OnDateChangeListener { view, year, month, dayOfMonth ->
                     Date[0] = year
@@ -29,35 +29,41 @@ class MainActivity : AppCompatActivity() {
                     Date[2] = dayOfMonth
             })
         fun liczbadni(){
-            if(DataWy[0]<DataPrzy[0] || DataWy[1]<DataPrzy[1] || DataWy[2]<DataPrzy[2]){
+            text.text = "Funkcja działa"
+            if(DataWy[0]>DataPrzy[0] || DataWy[1]>DataPrzy[1] || DataWy[2]>DataPrzy[2]){
                 text.text = "Data Wyjazdu nie może być po dacie przujazdu"
+            }
+            else{
+
             }
         }
         zatwierdz.setOnClickListener{
             if(rb1.isChecked){
                 licz += 1
-                for (i in 0..2) {
-                    DataWy[i] = 0;
-                }
-                for (i in 0..2){
-                    DataWy[i] = Date[i];
-                }
-                for (i in 0..2){
-                    findViewById<TextView>(R.id.textView2).text = findViewById<TextView>(R.id.textView2).text.toString() + DataWy[i].toString()
-                }
+                    for (i in 0..2) {
+                        DataWy[i] = 0;
+                    }
+                    for (i in 0..2){
+                        DataWy[i] = Date[i];
+                    }
+                    findViewById<TextView>(R.id.textView2).text = ""
+                    for (i in 0..2){
+                        findViewById<TextView>(R.id.textView2).text = findViewById<TextView>(R.id.textView2).text.toString() + DataWy[i].toString()
+                    }
                 liczbadni()
             }
             else if(rb2.isChecked){
                 licz += 1;
                     for (i in 0..2) {
-                        DataPrzy[i] = 0;
+                        DataPrzy[i] = 100000000;
                     }
                     for(i in 0..2){
                         DataPrzy[i] = Date[i]
                     }
-                for (i in 0..2){
-                    findViewById<TextView>(R.id.textView3).text = findViewById<TextView>(R.id.textView3).text.toString() + DataPrzy[i].toString()
-                }
+                    findViewById<TextView>(R.id.textView3).text = ""
+                    for (i in 0..2){
+                        findViewById<TextView>(R.id.textView3).text = findViewById<TextView>(R.id.textView3).text.toString() + DataPrzy[i].toString()
+                    }
                 liczbadni()
             }
         }
