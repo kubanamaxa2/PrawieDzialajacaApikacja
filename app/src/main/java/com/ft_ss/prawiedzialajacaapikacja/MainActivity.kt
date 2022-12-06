@@ -33,8 +33,12 @@ class MainActivity : AppCompatActivity() {
             if(DataWy[0]>DataPrzy[0] || DataWy[1]>DataPrzy[1] || DataWy[2]>DataPrzy[2]){
                 text.text = "Data Wyjazdu nie może być po dacie przujazdu"
             }
-            else{
-
+            else {
+                var roznicalat = (DataPrzy[0] - DataWy[0]) * 365
+                var roznicamies = (DataPrzy[1] - DataWy[1]) * 31
+                var roznicadni = DataPrzy[2] - DataWy[2]
+                var roznicawsumiedni = roznicalat.toInt() + roznicamies.toInt() + roznicadni.toInt()
+                text.text = "Różnica dni to:" + roznicawsumiedni.toString()
             }
         }
         zatwierdz.setOnClickListener{
