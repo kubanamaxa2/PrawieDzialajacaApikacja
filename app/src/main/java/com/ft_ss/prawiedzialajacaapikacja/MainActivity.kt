@@ -29,17 +29,21 @@ class MainActivity : AppCompatActivity() {
                     Date[2] = dayOfMonth
             })
         fun liczbadni(){
-            text.text = "Funkcja działa"
-            if(DataWy[0]>DataPrzy[0] || DataWy[1]>DataPrzy[1] || DataWy[2]>DataPrzy[2]){
-                text.text = "Data Wyjazdu nie może być po dacie przujazdu"
-            }
-            else {
                 var roznicalat = (DataPrzy[0] - DataWy[0]) * 365
                 var roznicamies = (DataPrzy[1] - DataWy[1]) * 31
                 var roznicadni = DataPrzy[2] - DataWy[2]
                 var roznicawsumiedni = roznicalat.toInt() + roznicamies.toInt() + roznicadni.toInt()
-                text.text = "Różnica dni to:" + roznicawsumiedni.toString()
+            if(roznicawsumiedni <0){
+                text.text = "Data Wyjazdu nie może być po dacie przujazdu"
             }
+            else if(roznicawsumiedni > 730)
+            {
+                text.text = "Wycieczka nie może być dłuższa niż dwa lata!!11!"
+            }
+            else{
+                text.text = "Różnica dni to: " + roznicawsumiedni.toString()
+            }
+
         }
         zatwierdz.setOnClickListener{
             if(rb1.isChecked){
@@ -69,6 +73,7 @@ class MainActivity : AppCompatActivity() {
                         findViewById<TextView>(R.id.textView3).text = findViewById<TextView>(R.id.textView3).text.toString() + DataPrzy[i].toString()
                     }
                 liczbadni()
+
             }
         }
     }
