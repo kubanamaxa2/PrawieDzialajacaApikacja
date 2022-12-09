@@ -3,10 +3,15 @@ package com.ft_ss.prawiedzialajacaapikacja
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract.Data
+import android.view.View
 import android.widget.RadioButton
 import android.widget.Button
 import android.widget.CalendarView
 import android.widget.TextView
+import androidx.core.view.get
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Calendar
 import java.util.Date
 
 class MainActivity : AppCompatActivity() {
@@ -15,33 +20,39 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         var licz = 0;
         var Date = mutableListOf<Int>(0,0,0);
-        var rb1 = findViewById<RadioButton>(R.id.rb1);
-        var rb2 = findViewById<RadioButton>(R.id.rb2);
-        var zatwierdz = findViewById<Button>(R.id.Zatwierdz);
-        var calendar = findViewById<CalendarView>(R.id.calendarView);
-        var text = findViewById<TextView>(R.id.textView)
+        val rb1 = findViewById<RadioButton>(R.id.rb1);
+        val rb2 = findViewById<RadioButton>(R.id.rb2);
+        val zatwierdz = findViewById<Button>(R.id.Zatwierdz);
+        val calendar = findViewById<CalendarView>(R.id.calendarView);
+        val text = findViewById<TextView>(R.id.textView)
         var DataWy = mutableListOf<Int>(0,0,0);
-        var DataPrzy = mutableListOf<Int>(100000000,10000000,10000000);
-        calendar.setOnDateChangeListener(
+        var DataPrzy = mutableListOf<Int>(1000000,100000,100000);
+            calendar.setOnDateChangeListener(
             CalendarView.OnDateChangeListener { view, year, month, dayOfMonth ->
-                    Date[0] = year
-                    Date[1] = month
-                    Date[2] = dayOfMonth
+                Date[0] = year
+                Date[1] = month
+                Date[2] = dayOfMonth
             })
         fun liczbadni(){
                 var roznicalat = (DataPrzy[0] - DataWy[0]) * 365
                 var roznicamies = (DataPrzy[1] - DataWy[1]) * 31
                 var roznicadni = DataPrzy[2] - DataWy[2]
-                var roznicawsumiedni = roznicalat.toInt() + roznicamies.toInt() + roznicadni.toInt()
-            if(roznicawsumiedni <0){
-                text.text = "Data Wyjazdu nie może być po dacie przujazdu"
+                var roznicawsumiedni = roznicalat + roznicamies + roznicadni
+            if(DataWy[1]<=0 && (DataPrzy[1]>12 || DataPrzy[1]<0)) {
+                text.text = "Wybierz daty!!"
             }
-            else if(roznicawsumiedni > 730)
+            else
             {
-                text.text = "Wycieczka nie może być dłuższa niż dwa lata!!11!"
-            }
-            else{
-                text.text = "Różnica dni to: " + roznicawsumiedni.toString()
+                if(roznicawsumiedni <0){
+                    text.text = "Data Wyjazdu nie może być po dacie przujazdu"
+                }
+                else if(roznicawsumiedni > 730)
+                {
+                    text.text = "Wycieczka nie może być dłuższa niż dwa lata!!11!"
+                }
+                else{
+                    text.text = "Różnica dni to: " + roznicawsumiedni.toString()
+                }
             }
 
         }
