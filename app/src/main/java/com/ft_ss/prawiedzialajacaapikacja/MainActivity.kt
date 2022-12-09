@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         Date[0] = f1.format(Date()).toInt()
         Date[1] = f2.format(Date()).toInt() -1
         Date[2] = f3.format(Date()).toInt()
-        var DateDis = mutableListOf<Int>(Date[0], Date[1], Date[2])
+        val DateDis = mutableListOf<Int>(Date[0], Date[1], Date[2])
             calendar.setOnDateChangeListener(
             CalendarView.OnDateChangeListener { view, year, month, dayOfMonth ->
                 Date[0] = year
