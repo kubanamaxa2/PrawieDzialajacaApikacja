@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.RadioButton
 import android.widget.Button
 import android.widget.CalendarView
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.get
 import java.text.SimpleDateFormat
@@ -21,6 +22,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         var licz = 0
+        var rb1click = 0
+        var rb2click = 0
+        var zatwclick = 0
         var Date = mutableListOf<Int>(0,0,0);
         val rb1 = findViewById<RadioButton>(R.id.rb1);
         val rb2 = findViewById<RadioButton>(R.id.rb2);
@@ -69,31 +73,73 @@ class MainActivity : AppCompatActivity() {
                     text.text = "Wyjazd będzie trwał: " + roznicawsumiedni.toString()
                 }
             }
-
+// rb1 -> zatwierdz -> rb2 -> zatwierdz
+        }
+        rb1.setOnClickListener {
+            if (rb1click == 0) {
+                findViewById<ImageView>(R.id.imageView2).visibility = View.INVISIBLE
+                findViewById<TextView>(R.id.textView2).visibility = View.INVISIBLE
+                findViewById<ImageView>(R.id.imageView4).visibility = View.VISIBLE
+                findViewById<TextView>(R.id.textView4).visibility = View.VISIBLE
+                rb1click = 1
+            }
+        }
+        rb2.setOnClickListener {
+            if (rb2click == 0) {
+                findViewById<ImageView>(R.id.imageView3).visibility = View.INVISIBLE
+                findViewById<TextView>(R.id.textView3).visibility = View.INVISIBLE
+                findViewById<ImageView>(R.id.imageView4).visibility = View.VISIBLE
+                findViewById<TextView>(R.id.textView4).visibility = View.VISIBLE
+                rb2click = 1
+            }
         }
         zatwierdz.setOnClickListener {
-            if(rb1.isChecked){
+            if(zatwclick == 0 && rb1click == 1) {
+                findViewById<ImageView>(R.id.imageView4).visibility = View.INVISIBLE
+                findViewById<TextView>(R.id.textView4).visibility = View.INVISIBLE
+                findViewById<ImageView>(R.id.imageView3).visibility = View.VISIBLE
+                findViewById<TextView>(R.id.textView3).visibility = View.VISIBLE
+                zatwclick= 1
+            }
+            else if(rb2click == 1){
+                findViewById<TextView>(R.id.textView4).text = "Żeby zatwierdzić \n datę  przyjazdu\n  kliknij tu"
+                findViewById<ImageView>(R.id.imageView4).visibility = View.INVISIBLE
+                findViewById<TextView>(R.id.textView4).visibility = View.INVISIBLE
+                findViewById<ImageView>(R.id.imageView3).visibility = View.INVISIBLE
+                findViewById<TextView>(R.id.textView3).visibility = View.INVISIBLE
+                findViewById<Button>(R.id.tutorial).visibility = View.VISIBLE
+            }
+            if (rb1.isChecked) {
                 licz += 1
-                    for (i in 0..2) {
-                        DataWy[i] = 0;
-                    }
-                    for (i in 0..2){
-                        DataWy[i] = Date[i];
-                    }
-                    rb1.text = "Data Wyjazdu: " + DataWy[2].toString() + "/" + DataWy[1].toString() + "/" + DataWy[0].toString()
+                for (i in 0..2) {
+                    DataWy[i] = 0;
+                }
+                for (i in 0..2) {
+                    DataWy[i] = Date[i];
+                }
+                rb1.text =
+                    "Data Wyjazdu: " + DataWy[2].toString() + "/" + DataWy[1].toString() + "/" + DataWy[0].toString()
+                liczbadni()
+            } else if (rb2.isChecked) {
+                licz += 1;
+                for (i in 0..2) {
+                    DataPrzy[i] = 100000000;
+                }
+                for (i in 0..2) {
+                    DataPrzy[i] = Date[i]
+                }
+                rb2.text =
+                    "Data Przyjazdu: " + DataPrzy[2].toString() + "/" + DataPrzy[1].toString() + "/" + DataPrzy[0].toString()
                 liczbadni()
             }
-            else if(rb2.isChecked){
-                licz += 1;
-                    for (i in 0..2) {
-                        DataPrzy[i] = 100000000;
-                    }
-                    for(i in 0..2){
-                        DataPrzy[i] = Date[i]
-                    }
-                    rb2.text = "Data Przyjazdu: " + DataPrzy[2].toString() + "/" + DataPrzy[1].toString() + "/" + DataPrzy[0].toString()
-                liczbadni()
 
+            findViewById<Button>(R.id.tutorial).setOnClickListener{
+                rb1click=0
+                rb2click=0
+                zatwclick=0
+                findViewById<ImageView>(R.id.imageView2).visibility = View.VISIBLE
+                findViewById<TextView>(R.id.textView2).visibility = View.VISIBLE
+                findViewById<Button>(R.id.tutorial).visibility = View.INVISIBLE
             }
         }
     }
