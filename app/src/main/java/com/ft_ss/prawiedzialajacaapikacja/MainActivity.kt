@@ -36,9 +36,9 @@ class MainActivity : AppCompatActivity() {
         Date[0] = f1.format(Date()).toInt()
         Date[1] = f2.format(Date()).toInt() -1
         Date[2] = f3.format(Date()).toInt()
-        mCalendar.set(Date[0] + 2,Date[1],Date[2])
+        calendar.setMinDate(Date().time)
+        calendar.setMaxDate(Date().time + 63115200000)
         calendar.setMinDate((Date().getTime()))
-        val DateDis = mutableListOf<Int>(Date[0], Date[1], Date[2])
             calendar.setOnDateChangeListener(
             CalendarView.OnDateChangeListener { view, year, month, dayOfMonth ->
                 Date[0] = year
@@ -80,10 +80,7 @@ class MainActivity : AppCompatActivity() {
                     for (i in 0..2){
                         DataWy[i] = Date[i];
                     }
-                    findViewById<TextView>(R.id.textView2).text = ""
-                    for (i in 0..2){
-                        findViewById<TextView>(R.id.textView2).text = findViewById<TextView>(R.id.textView2).text.toString() + DataWy[i].toString()
-                    }
+                    rb1.text = "Data Wyjazdu: " + DataWy[2].toString() + "/" + DataWy[1].toString() + "/" + DataWy[0].toString()
                 liczbadni()
             }
             else if(rb2.isChecked){
@@ -94,10 +91,7 @@ class MainActivity : AppCompatActivity() {
                     for(i in 0..2){
                         DataPrzy[i] = Date[i]
                     }
-                    findViewById<TextView>(R.id.textView3).text = ""
-                    for (i in 0..2){
-                        findViewById<TextView>(R.id.textView3).text = findViewById<TextView>(R.id.textView3).text.toString() + DataPrzy[i].toString()
-                    }
+                    rb2.text = "Data Przyjazdu: " + DataPrzy[2].toString() + "/" + DataPrzy[1].toString() + "/" + DataPrzy[0].toString()
                 liczbadni()
 
             }
